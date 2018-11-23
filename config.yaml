@@ -1,0 +1,6 @@
+
+name: ePyscope_training       # name of dataset
+folder: data                  # folder to put the data in
+ftp:                          # links to files
+    bam: ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/RMNISTHS_30xdownsample.bam
+    bai: ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/RMNISTHS_30xdownsample.bam.bai
