@@ -27,7 +27,7 @@ if not os.path.exists(bai_directory):
 
 wget.download(params.bailink, params.obai)
 
-#bam_directory = os.path.dirname(params.obam)
-#if not os.path.exists(bam_directory):
-#    os.makedirs(bam_directory)
-#wget.download(params.bamlink, params.obam)
+bam_directory = os.path.dirname(params.obam)
+if not os.path.exists(bam_directory):
+    os.makedirs(bam_directory)
+wget.download(params.bamlink, params.obam)
