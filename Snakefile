@@ -4,16 +4,11 @@
 configfile: "config.yaml"
 scriptsfolder="scripts"
 
-#runs the pipeline
 rule all:
     """
-
+    Runs the pipeline
     """
     input:
-        #dynamic(out_folder + "/{art}/{{leaves}}_{haplotype}.fq",haplotype=["0", "1"],art=art_out)
-        #config['folder'] + "/" + config['name'] + ".bam",
-        #config['folder'] + "/" + config['name'] + ".bam.bai"
-        #config['folder'] + "/" + config['name'] + ".fq"
         config['profile'] + ".txt"
 
 rule download_HiSeq:
