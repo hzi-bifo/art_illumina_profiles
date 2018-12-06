@@ -13,7 +13,8 @@ rule all:
         #dynamic(out_folder + "/{art}/{{leaves}}_{haplotype}.fq",haplotype=["0", "1"],art=art_out)
         #config['folder'] + "/" + config['name'] + ".bam",
         #config['folder'] + "/" + config['name'] + ".bam.bai"
-        config['folder'] + "/" + config['name'] + ".fq"
+        #config['folder'] + "/" + config['name'] + ".fq"
+        config['profile'] + ".txt"
 
 rule download_HiSeq:
     """
@@ -38,3 +39,20 @@ rule convert_to_fastq:
         "{filename}.fq"
     shell:
         "samtools bam2fq {input} > {output}"
+
+rule art_profiler:
+    """
+    Runs the art illumina profiler on downloaded/converted data
+
+    art_profiler_illumina
+        output_profile_name
+        input_fastq_dir
+        fastq_filename_extension
+        [max_number_threads]
+    """
+    input:
+        config['folder'] + "/" + config['name'] + ".fq"
+    output:
+        config['profile'] + ".txt"
+    shell:
+        "art_profiler_illumina " + config['profile'] + " " + config['folder'] + " fq"
