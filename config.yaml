@@ -1,9 +1,10 @@
+# Configuration of the art_illumina profiler pipeline
 
-name: ePyscope_training       # name of dataset
-folder: data                  # folder to put the data in
-input:                        # links to files
+# links to input files for download rule
+input:
+    # big human dataset
 #    bam: ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/RMNISTHS_30xdownsample.bam
-    bam: https://github.com/PROSIC/libprosic/blob/master/tests/test.bam?raw=true
 #    bai: ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/RMNISTHS_30xdownsample.bam.bai
-    bai: https://github.com/PROSIC/libprosic/blob/master/tests/test.bam.bai?raw=true
-profile: myProfile
+    # small testing dataset
+    bam: https://github.com/PROSIC/libprosic/blob/2e8abc4f52097047b39172ab0f399fc44bc98cf4/tests/test.bam?raw=true
+    bai: https://github.com/PROSIC/libprosic/blob/2e8abc4f52097047b39172ab0f399fc44bc98cf4/tests/test.bam.bai?raw=true

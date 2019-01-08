@@ -1,53 +1,78 @@
-"""
+# The main entry point of your workflow.
+# After configuring, running snakemake -n in a clone of this repository should successfully execute a dry-run of the workflow.
 
-"""
+import os
+from urllib.parse import urlparse
+
 configfile: "config.yaml"
-scriptsfolder="scripts"
+
+# extract sample name from bam download link, by stripping any query strings
+# from the end of the link and then removing leading path and trailing extension
+sample_name =   os.path.splitext(
+                    os.path.basename(
+                        urlparse(
+                            config['input']['bam']
+                        ).path
+                    )
+                )[0]
+
 
 rule all:
     """
-    Runs the pipeline
+    Final output of the pipeline.
     """
     input:
-        config['profile'] + ".txt"
+        # The first rule should define the default target files
+        # Subsequent target rules can be specified below. They should start with all_*.
+        "profiles/" + sample_name + ".1.txt",
+        "profiles/" + sample_name + ".2.txt"
 
-rule download_HiSeq:
+rule art_profiler_illumina:
     """
-    download bam file and its index
+    Runs the art illumina profiler on downloaded/converted data
+    """
+    input:
+        "reads/{file}.fq",
+    output:
+        "profiles/{file}.txt"
+    log:
+        "logs/art_profiler_illumina/{file}.log"
+    params: ""
+    threads: 2
+    wrapper:
+        "0.31.0/bio/art/profiler_illumina"
+
+
+rule samtools_bam2fq_separate:
+    """
+    Converts the downloaded bam-file to fastq using samtools.
+    """
+    input:
+        "input/{sample}.bam"
+    output:
+        "reads/{sample}.1.fq",
+        "reads/{sample}.2.fq"
+    params:
+        sort = "-m 4G",
+        bam2fq = "-n"
+    threads: 3
+    wrapper:
+        "0.31.0/bio/samtools/bam2fq/separate"
+
+
+rule download_bam_bai:
+    """
+    Download bam file and its index (bai).
     """
     output:
-        bam = config['folder'] + "/" + config['name'] + ".bam",
-        index = config['folder'] + "/" + config['name'] + ".bam.bai"
+        bam = "input/{sample}.bam",
+        index = "input/{sample}.bam.bai"
     params:
         bam = config['input']['bam'],
         bai = config['input']['bai']
     shell:
-        "python3 download_bam_bai.py --obam {output.bam} --obai {output.index} --bamlink {params.bam} --bailink {params.bai}"
-
-rule convert_to_fastq:
-    """
-    Converts the downloaded bam-file to fastq using samtools
-    """
-    input:
-        "{filename}.bam"
-    output:
-        "{filename}.fq"
-    shell:
-        "samtools bam2fq {input} > {output}"
-
-rule art_profiler:
-    """
-    Runs the art illumina profiler on downloaded/converted data
-
-    art_profiler_illumina
-        output_profile_name
-        input_fastq_dir
-        fastq_filename_extension
-        [max_number_threads]
-    """
-    input:
-        config['folder'] + "/" + config['name'] + ".fq"
-    output:
-        config['profile'] + ".txt"
-    shell:
-        "art_profiler_illumina " + config['profile'] + " " + config['folder'] + " fq"
+        "python3 scripts/download_bam_bai.py "
+        " --obam {output.bam} "
+        " --obai {output.index} "
+        " --bamlink {params.bam} "
+        " --bailink {params.bai}"
