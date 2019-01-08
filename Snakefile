@@ -53,7 +53,7 @@ rule samtools_bam2fq_separate:
         "reads/{sample}.1.fq",
         "reads/{sample}.2.fq"
     params:
-        sort = "-m 4G",
+        sort = "",
         bam2fq = "-n"
     threads: 3
     wrapper:
