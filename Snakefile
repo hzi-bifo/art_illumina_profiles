@@ -66,13 +66,15 @@ rule download_bam_bai:
     """
     output:
         bam = "input/{sample}.bam",
-        index = "input/{sample}.bam.bai"
+        bai = "input/{sample}.bam.bai"
+    log:
+        "logs/download_bam_bai/{sample}.log"
+    conda:
+        "envs/wget.yaml"
     params:
         bam = config['input']['bam'],
         bai = config['input']['bai']
     shell:
-        "python3 scripts/download_bam_bai.py "
-        " --obam {output.bam} "
-        " --obai {output.index} "
-        " --bamlink {params.bam} "
-        " --bailink {params.bai}"
+        "( wget --verbose -O {output.bai} {params.bai}; "
+        "  wget --verbose -O {output.bam} {params.bam}; "
+        " ) 2> {log}"
