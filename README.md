@@ -11,18 +11,28 @@ Snakemake workflow to generate `art_illumina` profiles from public, downloadable
 
 ## Usage
 
-### Step 1: Install workflow
+### Step 1: Install conda and Snakemake
+
+Install conda and set up the channels [as described for bioconda](https://bioconda.github.io/#using-bioconda).
+
+Once set up, use it to create an environment for running snakemake pipelines:
+
+    conda create -n snakemake snakemake conda
+
+This environment requires the availability of the conda command, as this workflow uses [Snakemake wrappers](https://snakemake-wrappers.readthedocs.io/en/stable/).
+
+### Step 2: Install workflow
 
 If you simply want to use this workflow, download and extract the [latest release](https://github.com/snakemake-workflows/art_illumina_profiles/releases).
 If you intend to modify and further develop this workflow, fork this repository. Please consider providing any generally applicable modifications via a pull request.
 
 In any case, if you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this repository and, if available, its DOI (see above).
 
-### Step 2: Configure workflow
+### Step 3: Configure workflow
 
 Configure the workflow according to your needs via editing the file `config.yaml`.
 
-### Step 3: Execute workflow
+### Step 4: Execute workflow
 
 Test your configuration by performing a dry-run via
 
@@ -30,14 +40,14 @@ Test your configuration by performing a dry-run via
 
 Execute the workflow locally via
 
-    snakemake --cores $N
+    snakemake --cores $N --use-conda
 
 using `$N` cores or run it in a cluster environment via
 
-    snakemake --cluster qsub --jobs 100
+    snakemake --cluster qsub --jobs 100 --use-conda
 
 or
 
-    snakemake --drmaa --jobs 100
+    snakemake --drmaa --jobs 100 --use-conda
 
 See the [Snakemake documentation](https://snakemake.readthedocs.io) for further details.
