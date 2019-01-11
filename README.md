@@ -15,7 +15,7 @@ Snakemake workflow to generate `art_illumina` profiles from public, downloadable
 
 Install conda and set up the channels [as described for bioconda](https://bioconda.github.io/#using-bioconda).
 
-Once set up, use it to create an environment for running snakemake pipelines:
+Once set up, use it to create an environment for running snakemake pipelines
 
     conda create -n snakemake snakemake conda
 
@@ -34,7 +34,11 @@ Configure the workflow according to your needs via editing the file `config.yaml
 
 ### Step 4: Execute workflow
 
-Test your configuration by performing a dry-run via
+First, activate your snakemake environment with (deactivate later with `conda deactivate`)
+
+    conda activate snakemake
+
+You can then test your configuration by performing a dry-run via
 
     snakemake -n
 
