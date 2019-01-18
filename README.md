@@ -13,7 +13,7 @@ Snakemake workflow to generate `art_illumina` profiles from public, downloadable
 
 ### Step 1: Install conda and Snakemake
 
-Install conda and set up the channels [as described for bioconda](https://bioconda.github.io/#using-bioconda).
+Install conda and set up the channels [as described for bioconda](https://bioconda.github.io/#using-bioconda). If you have conda already installed on your system, make sure that it is updated to version 4.5.12 (or higher). You can update conda with `conda update -n base conda`(miniconda3) or `conda update -n root conda` (miniconda2).
 
 Once set up, use it to create an environment for running snakemake pipelines
 
