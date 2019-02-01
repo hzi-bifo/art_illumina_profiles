@@ -55,3 +55,6 @@ or
     snakemake --drmaa --jobs 100 --use-conda
 
 See the [Snakemake documentation](https://snakemake.readthedocs.io) for further details.
+
+## Example Output
+An example output of this pipeline can be found in the [example_profile](https://github.com/hzi-bifo/art_iallumina_profiles/tree/master/example_profile)-folder of this repository.

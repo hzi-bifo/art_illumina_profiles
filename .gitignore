@@ -1,4 +1,6 @@
 *
+!example_profile
+!example_profile/*
 !scripts
 !scripts/*
 !scripts/common
@@ -21,3 +23,4 @@ scripts/.snakemake*
 !.editorconfig
 !.travis.yml
 !.test
+
